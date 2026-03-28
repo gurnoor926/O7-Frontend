@@ -3,22 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=\, initial-scale=1.0">
-    <title>Document</title>
+    <title>Stationary-items-froms</title>
 </head>
 <body>
+    <h1>Stationary Items Form</h1>
     <form>
         <label for =" Items-list">Items List:</label>
-        <select id = "Items-list" name = "Items-list">
+        <select id = "Items-list" name = "Items-list" onchange = "unitPrice()">
             <option value = "item0">Select an item</option>
-            <option value = "item1">Pen ₹10</option>
-            <option value = "item2">Notebook ₹50</option>
-            <option value = "item3">Stapler  ₹120</option>
-            <option value = "item4">Marker ₹30</option>
+            <option value = "item1">Pen</option>
+            <option value = "item2">Notebook</option>
+            <option value = "item3">Stapler</option>
+            <option value = "item4">Marker</option>
         </select>
         <br>
         <br>
         <label for = "quantity">Quantity:</label>
-        <input type = "number" id = "quantity" name = "quantity" min = "1" value = "1">
+        <input type = "number" id = "quantity" name = "quantity" min = "1" value = "1" oninput = "applyDiscount()">
+        <br>
+        <br>
+        <label for ="unit_price">Unit Price:</label>
+        <input type = "text" id = "unit_price" name = "unit_price" readonly>
+        <br>
+        <br>
+        <label for = "discount">Discount:</label>
+        <input type = "text" id = "discount" name = "discount" readonly>
         <br>
         <br>
         <label for = "total">Total Price:</label>
@@ -28,29 +37,108 @@
 
         <button type = "button" onclick = "calculateTotal()">Calculate Total</button>
     </form>
+    <h1>Printing Services Form</h1>
+     <form>
+        <label for  = "Number-of-pages">Number of Pages:</label>
+        <input type = "number" id = "Number-of-pages" name = "Number-of-pages" min = "1" value = "1">
+        <br><br>
+        <label for = "Print-type">Print type:</label>
+        <select id = "Print-type" name = "Print-type">
+            <option value = "print0">Select print type</option>
+            <option value = "print1">Black and White</option>
+            <option value = "print2">Color</option>
+        </select>
+        <br><br>
+        <label for ="urgent-delivery">Urgent Delivery:</label>
+        <input type = "checkbox" id = "urgent-delivery" name = "urgent-delivery">
+        <br><br>
+        <label for ="subtotal">Subtotal:</label>
+        <input type = "text" id = "subtotal" name = "subtotal" readonly>
+        <br><br>
+        <label for = "discount-printing">Discount:</label>
+        <input type = "text" id = "discount-printing" name = "discount" readonly>
+        <br><br>
+        <label for = "total-printing">Total Price:</label>
+        <input type = "text" id = "total-printing" name = "total" readonly>
+        <br><br>
+        <button type = "button" onclick = "calculateTotal()">Calculate Total</button>
+    </form>
     <script>
+        //section for stationary items form
         const itemsList = document.getElementById('Items-list');
         const quantityInput = document.getElementById('quantity');
         const totalInput = document.getElementById('total');
-        const Discount = 0.1;
+        const unitPriceInput = document.getElementById('unit_price');
+        const discountInput = document.getElementById('discount');
+        const Discount = 0.1; //10%
         const items = {
             'item1': 10,
             'item2': 50,
             'item3': 120,
             'item4': 30
         };
+        function unitPrice() {
+            const selectedItem = itemsList.value;
+            if (items[selectedItem]) {
+                unitPriceInput.value = `₹${items[selectedItem]}`;
+            } else {
+                unitPriceInput.value = '';
+            }
+        }
+        function applyDiscount() {
+            const quantity = parseInt(quantityInput.value);
+            if (quantity > 20) {
+                discountInput.value = `10%`;
+            } else {
+                discountInput.value = '';
+            }
+        }
         function calculateTotal() {
             const selectedItem = itemsList.value;
             const quantity = parseInt(quantityInput.value);
             if (items[selectedItem]) {
                 if(quantity > 20) {
-                    
+                    const totalPrice = items[selectedItem] * quantity;
+                    const discountedPrice = totalPrice - (totalPrice * Discount);
+                    totalInput.value = `₹${discountedPrice}`;
+                } else {
+                    const totalPrice = items[selectedItem] * quantity;
+                    totalInput.value = `₹${totalPrice}`;
                 }
-                const totalPrice = items[selectedItem] * quantity;
-                totalInput.value = `₹${totalPrice}`;
             } else {
                 totalInput.value = '';
             }
+        }
+        //section for printing services form
+        const pagesInput = document.getElementById('Number-of-pages');
+        const printTypeSelect = document.getElementById('Print-type');
+        const urgentDeliveryCheckbox = document.getElementById('urgent-delivery');
+        const subtotalInput = document.getElementById('subtotal');
+        const discountInputPrinting = document.getElementById('discount-printing');
+        const totalInputPrinting = document.getElementById('total-printing');
+        const printPricesPerPage = {
+            'print1': 50, // Black and White
+            'print2': 10  // Color
+        };
+        function calculateTotal() {
+            const pages = parseInt(pagesInput.value);
+            const printType = printTypeSelect.value;
+            const isUrgent = urgentDeliveryCheckbox.checked;
+            let subtotal = 0;
+            if (printPricesPerPage[printType]) {
+                subtotal = pages * printPricesPerPage[printType];
+            }
+            let discount = 0;
+            if (pages > 100) {
+                discount = subtotal * 0.1; // 10% discount for more than 100 pages
+            }
+            let total = subtotal - discount;
+            if (isUrgent) {
+                total += 50; // Urgent delivery fee
+            }
+            subtotalInput.value = `₹${subtotal.toFixed(2)}`;
+            discountInputPrinting.value = `₹${discount.toFixed(2)}`;
+            totalInputPrinting.value = `₹${total.toFixed(2)}`;
         }
     </script>
 </body>
