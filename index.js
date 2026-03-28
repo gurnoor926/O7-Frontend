@@ -96,4 +96,4 @@
         const orderIdDisplay = document.getElementById('order-id-cell');
         const itemNameDisplay = document.getElementById('item-name-cell');
         const quantityDisplay = document.getElementById('item-quantity-cell');
-        
+        const itemTotalDisplay = document.getElementById('item-total-cell');
