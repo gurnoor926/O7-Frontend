@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice</title>
+</head>
+<body>
+    <table border="1" id = "invoice-table">
+        <tr id = "customer-name-row">
+            <th>Customer Name</th>
+            <td id="customer-name-cell"></td>
+            <th>Order Date</th>
+            <td id="order-date-cell"></td>
+            <th>order Id</th>
+            <td id="order-id-cell"></td>
+        </tr>
+        <table id="stationary-item-table" border="1">
+            <tr>
+                <th>Item</th>
+                <th>Quantity</th>
+                <th>Total Price</th>
+            </tr>
+            <tr>
+                <td id="item-name-cell"></td>
+                <td id="item-quantity-cell"></td>
+                <td id="item-total-price-cell"></td>
+            </tr>
+        </table>
+        <table id="printing-service-table" border="1">
+            <tr>
+                <th>Print Type</th>
+                <th>Number of Pages</th>
+                <th>Total Price</th>
+            </tr>
+            <tr>
+                <td id="print-type-cell"></td>
+                <td id="print-pages-cell"></td>
+                <td id="print-total-price-cell"></td>
+            </tr>
+        </table>
+        <tr>
+            <th>Tax</th>
+            <td id="tax-cell"></td>
+            <th>Discount</th>
+            <td id="discount-cell"></td>
+            <th>Grand Total</th>
+            <td id="grand-total-cell"></td>
+        </tr>
+    </table>
+</body>
+</html>
