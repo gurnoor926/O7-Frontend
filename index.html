@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=\, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form>
+        <label for =" Items-list">Items List:</label>
+        <select id = "Items-list" name = "Items-list">
+            <option value = "item0">Select an item</option>
+            <option value = "item1">Pen ₹10</option>
+            <option value = "item2">Notebook ₹50</option>
+            <option value = "item3">Stapler  ₹120</option>
+            <option value = "item4">Marker ₹30</option>
+        </select>
+        <br>
+        <br>
+        <label for = "quantity">Quantity:</label>
+        <input type = "number" id = "quantity" name = "quantity" min = "1" value = "1">
+        <br>
+        <br>
+        <label for = "total">Total Price:</label>
+        <input type = "text" id = "total" name = "total" readonly>
+        <br>
+        <br>
+
+        <button type = "button" onclick = "calculateTotal()">Calculate Total</button>
+    </form>
+    <script>
+        const itemsList = document.getElementById('Items-list');
+        const quantityInput = document.getElementById('quantity');
+        const totalInput = document.getElementById('total');
+        const Discount = 0.1;
+        const items = {
+            'item1': 10,
+            'item2': 50,
+            'item3': 120,
+            'item4': 30
+        };
+        function calculateTotal() {
+            const selectedItem = itemsList.value;
+            const quantity = parseInt(quantityInput.value);
+            if (items[selectedItem]) {
+                if(quantity > 20) {
+                    
+                }
+                const totalPrice = items[selectedItem] * quantity;
+                totalInput.value = `₹${totalPrice}`;
+            } else {
+                totalInput.value = '';
+            }
+        }
+    </script>
+</body>
+</html>
