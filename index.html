@@ -61,8 +61,22 @@
         <label for = "total-printing">Total Price:</label>
         <input type = "text" id = "total-printing" name = "total" readonly>
         <br><br>
-        <button type = "button" onclick = "calculateTotal()">Calculate Total</button>
+        <button type = "button" onclick = "calculateTotalPrinting()">Calculate Total Printing</button>
     </form>
+    <h1>Combined Calculation and Tax </h1>
+        <form>
+            <label for = "combined-total">Combined Total:</label>
+            <input type = "text" id = "combined-total" name = "combined-total" readonly>
+            <br><br>
+            <label for = "tax">Tax (10%):</label>
+            <input type = "text" id = "tax" name = "tax" readonly>
+            <br><h5>Delivery Charge = ₹50</h5>
+            <label for = "final-total">Final Total:</label>
+            <input type = "text" id = "final-total" name = "final-total" readonly>
+            <br><br>
+            
+            <button type = "button" onclick = "calculateFinalTotal()">Calculate Final Total</button>
+        </form>
     <script>
         //section for stationary items form
         const itemsList = document.getElementById('Items-list');
@@ -120,7 +134,7 @@
             'print1': 50, // Black and White
             'print2': 10  // Color
         };
-        function calculateTotal() {
+        function calculateTotalPrinting() {
             const pages = parseInt(pagesInput.value);
             const printType = printTypeSelect.value;
             const isUrgent = urgentDeliveryCheckbox.checked;
@@ -140,6 +154,21 @@
             discountInputPrinting.value = `₹${discount.toFixed(2)}`;
             totalInputPrinting.value = `₹${total.toFixed(2)}`;
         }
+        //section for combined calculation and tax
+        const combinedTotalInput = document.getElementById('combined-total');
+        const taxInput = document.getElementById('tax');
+        const finalTotalInput = document.getElementById('final-total');
+        function calculateFinalTotal() {
+            const stationaryTotal = parseFloat(totalInput.value.replace('₹', '')) || 0;
+            const printingTotal = parseFloat(totalInputPrinting.value.replace('₹', '')) || 0;
+            const combinedTotal = stationaryTotal + printingTotal;
+            const tax = combinedTotal * 0.1; // 10% tax
+            const finalTotal = combinedTotal + tax + 50; // Adding delivery charge
+            combinedTotalInput.value = `₹${combinedTotal.toFixed(2)}`;
+            taxInput.value = `₹${tax.toFixed(2)}`;
+            finalTotalInput.value = `₹${finalTotal.toFixed(2)}`;
+        }
+
     </script>
 </body>
 </html>
